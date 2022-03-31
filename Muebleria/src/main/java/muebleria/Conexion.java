@@ -23,20 +23,19 @@ public class Conexion {
                     + "loginTimeout=30;";
     public static Connection getConexion(){
             
-          
-            try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                Connection con = DriverManager.getConnection(CONEXIONURL);
-                System.out.println("SI SE CONECTO");
-                return con;
-            } catch (SQLException ex) {
-                System.out.println(ex.toString());
-                System.out.println("EN LA PRIMERA");
-                return null;
-            } catch (ClassNotFoundException ex) {
-                System.out.println(ex.toString());
-                System.out.println("EN LA SEGUNDA");
-                return null;
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection(CONEXIONURL);
+            System.out.println("SI SE CONECTO");
+            return con;
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+            System.out.println("EN LA PRIMERA");
+            return null;
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex.toString());
+            System.out.println("EN LA SEGUNDA");
+            return null;
         }  
     }
 }

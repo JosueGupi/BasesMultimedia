@@ -17,6 +17,7 @@ public class Producto {
     public float precio;
     public String nombre;
     public String cuidados;
+    public byte [] imagen;
 
     public Producto() {
     }
