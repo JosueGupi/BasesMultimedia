@@ -1,6 +1,11 @@
 USE Muebleria
 GO
-CREATE PROCEDURE [dbo].[SP_ValidarLogin]
+CREATE PROCEDURE [dbo].[SP_ValidarUsuario]
+	@inNombre VARCHAR(16),
+	@inApellido VARCHAR(16),
+	@inTarjeta VARCHAR(16),
+	@inCVC INT,
+	@inDireccion VARCHAR(16),
 	@inUsuario VARCHAR(16),
 	@inContraseña VARCHAR(16),
 	@outResultCode INT OUTPUT
@@ -8,17 +13,27 @@ CREATE PROCEDURE [dbo].[SP_ValidarLogin]
 	BEGIN
 	SET NOCOUNT ON
 	BEGIN TRY
-		SELECT IdCliente
-			, Nombre
-			, Apellido
-			, Tarjeta
-			, CVC
-			, DireccionEntrega
-			, Usuario
-			, Contra 
-		FROM dbo.Cliente 
-		WHERE Usuario = @inUsuario 
-		AND Contra = @inContraseña;
+		IF NOT EXISTS (SELECT IdCliente FROM Cliente WHERE Usuario = @inUsuario)
+		BEGIN
+			INSERT INTO Cliente (
+				Nombre
+				, Apellido
+				, Tarjeta
+				, CVC
+				, DireccionEntrega
+				, Usuario
+				, Contra
+			)
+			SELECT
+				@inNombre
+				, @inApellido
+				, @inTarjeta
+				, @inCVC
+				, @inDireccion
+				, @inUsuario
+				, @inContraseña 
+			
+		END
 	END TRY
 	BEGIN CATCH
 		IF @@Trancount>0 

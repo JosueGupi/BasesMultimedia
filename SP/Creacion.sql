@@ -64,5 +64,14 @@ CREATE TABLE ProductoXFacturas (
 	precioActual money NOT NULL
 )
 
-
+CREATE TABLE [dbo].[Errores](
+	[Name] varchar(max) NOT NULL,
+	[Numero] int NOT NULL,
+	[Estado] int NOT NULL,
+	[Severidad] int NOT NULL,
+	[Linea] int NOT NULL,
+	[Procedimientos] varchar(max) NOT NULL,
+	[Mensaje] varchar(max) NOT NULL,
+	[Fecha] date NOT NULL
+)
 
