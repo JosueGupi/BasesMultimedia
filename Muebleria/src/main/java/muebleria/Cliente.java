@@ -31,11 +31,13 @@ public class Cliente extends javax.swing.JFrame {
         cbNompreP = new javax.swing.JComboBox<>();
         cbTipoP = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtaCuidados = new javax.swing.JTextArea();
         btnAnadir = new javax.swing.JButton();
         btnComprar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        lblImagen = new javax.swing.JLabel();
         spCant = new javax.swing.JSpinner();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtaCarac = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -59,12 +61,11 @@ public class Cliente extends javax.swing.JFrame {
         getContentPane().add(cbTipoP);
         cbTipoP.setBounds(231, 103, 138, 21);
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setBackground(new java.awt.Color(240, 240, 240));
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Bahnschrift", 0, 12)); // NOI18N
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtaCuidados.setEditable(false);
+        txtaCuidados.setColumns(20);
+        txtaCuidados.setFont(new java.awt.Font("Bahnschrift", 0, 12)); // NOI18N
+        txtaCuidados.setRows(5);
+        jScrollPane1.setViewportView(txtaCuidados);
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(96, 170, 206, 174);
@@ -89,11 +90,19 @@ public class Cliente extends javax.swing.JFrame {
         getContentPane().add(btnComprar);
         btnComprar.setBounds(379, 401, 110, 27);
 
-        jLabel2.setText("Imagen");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(493, 132, 220, 212);
+        lblImagen.setText("Imagen");
+        getContentPane().add(lblImagen);
+        lblImagen.setBounds(493, 164, 220, 180);
         getContentPane().add(spCant);
-        spCant.setBounds(397, 102, 46, 20);
+        spCant.setBounds(397, 102, 46, 30);
+
+        txtaCarac.setColumns(20);
+        txtaCarac.setFont(new java.awt.Font("Bahnschrift", 0, 12)); // NOI18N
+        txtaCarac.setRows(5);
+        jScrollPane2.setViewportView(txtaCarac);
+
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(480, 100, 230, 50);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Furniture_pictograms.jpg"))); // NOI18N
         jLabel3.setText("jLabel3");
@@ -153,10 +162,12 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbNompreP;
     private javax.swing.JComboBox<String> cbTipoP;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblImagen;
     private javax.swing.JSpinner spCant;
+    private javax.swing.JTextArea txtaCarac;
+    private javax.swing.JTextArea txtaCuidados;
     // End of variables declaration//GEN-END:variables
 }

@@ -79,32 +79,32 @@ public class CrearCuenta extends javax.swing.JFrame {
         getContentPane().add(lblTipoP);
         lblTipoP.setBounds(210, 182, 85, 23);
         getContentPane().add(txtNombre);
-        txtNombre.setBounds(210, 104, 147, 20);
+        txtNombre.setBounds(210, 104, 147, 30);
         getContentPane().add(txtContraseña);
-        txtContraseña.setBounds(305, 322, 146, 20);
+        txtContraseña.setBounds(305, 322, 146, 30);
         getContentPane().add(txtCvc);
-        txtCvc.setBounds(305, 182, 146, 20);
+        txtCvc.setBounds(305, 182, 146, 30);
 
         lblNombre1.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         lblNombre1.setText("Apellido:");
         getContentPane().add(lblNombre1);
         lblNombre1.setBounds(367, 104, 63, 23);
         getContentPane().add(txtApellido);
-        txtApellido.setBounds(434, 104, 147, 20);
+        txtApellido.setBounds(434, 104, 147, 30);
 
         lblTarjeta.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         lblTarjeta.setText("Tarjeta:");
         getContentPane().add(lblTarjeta);
         lblTarjeta.setBounds(200, 148, 68, 23);
         getContentPane().add(txtTarjeta);
-        txtTarjeta.setBounds(272, 148, 248, 20);
+        txtTarjeta.setBounds(272, 148, 248, 30);
 
         lblContrasena1.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         lblContrasena1.setText("Dirección:");
         getContentPane().add(lblContrasena1);
         lblContrasena1.setBounds(210, 223, 77, 23);
         getContentPane().add(txtDireccion);
-        txtDireccion.setBounds(305, 223, 146, 20);
+        txtDireccion.setBounds(305, 223, 146, 30);
 
         lblContrasena2.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         lblContrasena2.setText("Usuario:");
@@ -117,7 +117,7 @@ public class CrearCuenta extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtUsuario);
-        txtUsuario.setBounds(305, 272, 146, 20);
+        txtUsuario.setBounds(305, 272, 146, 30);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo-vector.jpg"))); // NOI18N
         jLabel2.setText("jLabel2");

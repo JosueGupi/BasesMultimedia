@@ -49,7 +49,7 @@ public class LoginAdmin extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtCliente);
-        txtCliente.setBounds(120, 190, 187, 20);
+        txtCliente.setBounds(120, 190, 187, 30);
 
         jLabel1.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -57,7 +57,7 @@ public class LoginAdmin extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(30, 200, 84, 18);
         getContentPane().add(txtContra);
-        txtContra.setBounds(120, 230, 187, 20);
+        txtContra.setBounds(120, 230, 187, 30);
 
         jLabel2.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));

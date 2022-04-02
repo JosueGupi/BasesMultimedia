@@ -42,7 +42,7 @@ public class Login extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(751, 496));
         getContentPane().setLayout(null);
         getContentPane().add(txtContra);
-        txtContra.setBounds(150, 240, 187, 20);
+        txtContra.setBounds(150, 240, 187, 30);
 
         jLabel2.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -72,7 +72,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtCliente);
-        txtCliente.setBounds(150, 200, 187, 20);
+        txtCliente.setBounds(150, 200, 187, 30);
 
         jLabel1.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
