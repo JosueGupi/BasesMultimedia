@@ -5,8 +5,12 @@
  */
 package muebleria;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -113,7 +117,10 @@ public class Admin extends javax.swing.JFrame {
         JTextField txtDimensiones = new JTextField(5);
         JTextField txtPrecio = new JTextField(5);
         JTextField txtNombre = new JTextField(5);
+        JTextField txtColor = new JTextField(5);
         JTextField txtCuidados = new JTextField(5);
+        JButton btnImagen = new JButton("Abrir Imagen");
+        JFileChooser chooser = new JFileChooser();
 
         JPanel myPanel = new JPanel();
         myPanel.add(new JLabel("Material:"));
@@ -131,9 +138,21 @@ public class Admin extends javax.swing.JFrame {
         myPanel.add(new JLabel("Nombre:"));
         myPanel.add(txtNombre);
         myPanel.add(Box.createHorizontalStrut(5)); // a spacer
+        myPanel.add(new JLabel("Color:"));
+        myPanel.add(txtColor);
+        myPanel.add(Box.createHorizontalStrut(5)); // a spacer
         myPanel.add(new JLabel("Cuidados:"));
         myPanel.add(txtCuidados);
-
+        myPanel.add(Box.createHorizontalStrut(5)); // a spacer
+        myPanel.add(btnImagen);
+        btnImagen.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chooser.showOpenDialog(myPanel);
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+        
         int result = JOptionPane.showConfirmDialog(null, myPanel, 
                  "Ingrese los datos del nuevo Producto", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
@@ -142,7 +161,9 @@ public class Admin extends javax.swing.JFrame {
            System.out.println("Dimensiones: " + txtDimensiones.getText());
            System.out.println("Precio: " + txtPrecio.getText());
            System.out.println("Nombre: " + txtNombre.getText());
+           System.out.println("Color: " + txtColor.getText());
            System.out.println("Cuidados: " + txtCuidados.getText());
+           System.out.println("Path Imagen: " + chooser.getSelectedFile().getAbsolutePath());
       }
     }//GEN-LAST:event_btnCreateActionPerformed
 
@@ -158,7 +179,10 @@ public class Admin extends javax.swing.JFrame {
         JTextField txtDimensiones = new JTextField(5);
         JTextField txtPrecio = new JTextField(5);
         JTextField txtNombre = new JTextField(5);
+        JTextField txtColor = new JTextField(5);
         JTextField txtCuidados = new JTextField(5);
+        JButton btnImagen = new JButton("Abrir Imagen");
+        JFileChooser chooser = new JFileChooser();
 
         JPanel myPanel = new JPanel();
         myPanel.add(new JLabel("ID:"));
@@ -179,8 +203,20 @@ public class Admin extends javax.swing.JFrame {
         myPanel.add(new JLabel("Nombre:"));
         myPanel.add(txtNombre);
         myPanel.add(Box.createHorizontalStrut(5)); // a spacer
+        myPanel.add(new JLabel("Color:"));
+        myPanel.add(txtColor);
+        myPanel.add(Box.createHorizontalStrut(5)); // a spacer
         myPanel.add(new JLabel("Cuidados:"));
         myPanel.add(txtCuidados);
+        myPanel.add(Box.createHorizontalStrut(5)); // a spacer
+        myPanel.add(btnImagen);
+        btnImagen.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chooser.showOpenDialog(myPanel);
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
 
         int result = JOptionPane.showConfirmDialog(null, myPanel, 
                  "Ingrese los datos del nuevo Producto", JOptionPane.OK_CANCEL_OPTION);
@@ -191,7 +227,10 @@ public class Admin extends javax.swing.JFrame {
            System.out.println("Dimensiones: " + txtDimensiones.getText());
            System.out.println("Precio: " + txtPrecio.getText());
            System.out.println("Nombre: " + txtNombre.getText());
+           System.out.println("Color: " + txtColor.getText());
            System.out.println("Cuidados: " + txtCuidados.getText());
+           System.out.println("Path Imagen: " + chooser.getSelectedFile().getAbsolutePath());
+           
       }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
