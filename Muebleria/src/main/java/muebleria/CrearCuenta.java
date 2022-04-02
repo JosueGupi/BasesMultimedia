@@ -28,15 +28,26 @@ public class CrearCuenta extends javax.swing.JFrame {
     private void initComponents() {
 
         btnCrear = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        lblContrasena = new javax.swing.JLabel();
+        lblTipoP = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         txtContraseña = new javax.swing.JTextField();
-        txtPago = new javax.swing.JTextField();
+        txtCvc = new javax.swing.JTextField();
+        lblNombre1 = new javax.swing.JLabel();
+        txtApellido = new javax.swing.JTextField();
+        lblTarjeta = new javax.swing.JLabel();
+        txtTarjeta = new javax.swing.JTextField();
+        lblContrasena1 = new javax.swing.JLabel();
+        txtDireccion = new javax.swing.JTextField();
+        lblContrasena2 = new javax.swing.JLabel();
+        txtUsuario = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(755, 483));
+        getContentPane().setLayout(null);
 
         btnCrear.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         btnCrear.setText("Crear");
@@ -45,75 +56,85 @@ public class CrearCuenta extends javax.swing.JFrame {
                 btnCrearActionPerformed(evt);
             }
         });
+        getContentPane().add(btnCrear);
+        btnCrear.setBounds(305, 393, 80, 27);
 
-        jLabel1.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
-        jLabel1.setText("Crear Cuenta");
+        lblTitulo.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
+        lblTitulo.setText("Crear Cuenta");
+        getContentPane().add(lblTitulo);
+        lblTitulo.setBounds(321, 34, 109, 23);
 
-        jLabel2.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
-        jLabel2.setText("Nombre:");
+        lblNombre.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
+        lblNombre.setText("Nombre:");
+        getContentPane().add(lblNombre);
+        lblNombre.setBounds(115, 104, 77, 23);
 
-        jLabel3.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
-        jLabel3.setText("Contraseña:");
+        lblContrasena.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
+        lblContrasena.setText("Contraseña:");
+        getContentPane().add(lblContrasena);
+        lblContrasena.setBounds(210, 322, 77, 23);
 
-        jLabel4.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
-        jLabel4.setText("Tipo de Pago:");
+        lblTipoP.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
+        lblTipoP.setText("CVC:");
+        getContentPane().add(lblTipoP);
+        lblTipoP.setBounds(210, 182, 85, 23);
+        getContentPane().add(txtNombre);
+        txtNombre.setBounds(210, 104, 147, 20);
+        getContentPane().add(txtContraseña);
+        txtContraseña.setBounds(305, 322, 146, 20);
+        getContentPane().add(txtCvc);
+        txtCvc.setBounds(305, 182, 146, 20);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(304, 304, 304)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnCrear)
-                            .addComponent(jLabel1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(240, 240, 240)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtContraseña))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtPago, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(269, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabel1)
-                .addGap(101, 101, 101)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
-                .addComponent(btnCrear)
-                .addGap(64, 64, 64))
-        );
+        lblNombre1.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
+        lblNombre1.setText("Apellido:");
+        getContentPane().add(lblNombre1);
+        lblNombre1.setBounds(367, 104, 63, 23);
+        getContentPane().add(txtApellido);
+        txtApellido.setBounds(434, 104, 147, 20);
+
+        lblTarjeta.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
+        lblTarjeta.setText("Tarjeta:");
+        getContentPane().add(lblTarjeta);
+        lblTarjeta.setBounds(200, 148, 68, 23);
+        getContentPane().add(txtTarjeta);
+        txtTarjeta.setBounds(272, 148, 248, 20);
+
+        lblContrasena1.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
+        lblContrasena1.setText("Dirección:");
+        getContentPane().add(lblContrasena1);
+        lblContrasena1.setBounds(210, 223, 77, 23);
+        getContentPane().add(txtDireccion);
+        txtDireccion.setBounds(305, 223, 146, 20);
+
+        lblContrasena2.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
+        lblContrasena2.setText("Usuario:");
+        getContentPane().add(lblContrasena2);
+        lblContrasena2.setBounds(210, 272, 77, 23);
+
+        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsuarioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtUsuario);
+        txtUsuario.setBounds(305, 272, 146, 20);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo-vector.jpg"))); // NOI18N
+        jLabel2.setText("jLabel2");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(10, 10, 740, 480);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCrearActionPerformed
+
+    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,12 +173,21 @@ public class CrearCuenta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrear;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel lblContrasena;
+    private javax.swing.JLabel lblContrasena1;
+    private javax.swing.JLabel lblContrasena2;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblNombre1;
+    private javax.swing.JLabel lblTarjeta;
+    private javax.swing.JLabel lblTipoP;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtContraseña;
+    private javax.swing.JTextField txtCvc;
+    private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtPago;
+    private javax.swing.JTextField txtTarjeta;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

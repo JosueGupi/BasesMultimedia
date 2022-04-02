@@ -5,6 +5,7 @@
  */
 package muebleria;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -31,11 +32,16 @@ public class Index extends javax.swing.JFrame {
 
         btnAdmin = new javax.swing.JButton();
         btnCliente = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Inicio");
         setFont(new java.awt.Font("Bahnschrift", 0, 10)); // NOI18N
+        setPreferredSize(new java.awt.Dimension(755, 483));
         setResizable(false);
+        setSize(new java.awt.Dimension(755, 483));
+        getContentPane().setLayout(null);
 
         btnAdmin.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         btnAdmin.setText("Admin");
@@ -44,6 +50,8 @@ public class Index extends javax.swing.JFrame {
                 btnAdminActionPerformed(evt);
             }
         });
+        getContentPane().add(btnAdmin);
+        btnAdmin.setBounds(309, 238, 132, 43);
 
         btnCliente.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         btnCliente.setText("Cliente");
@@ -52,34 +60,18 @@ public class Index extends javax.swing.JFrame {
                 btnClienteActionPerformed(evt);
             }
         });
+        getContentPane().add(btnCliente);
+        btnCliente.setBounds(309, 177, 132, 43);
 
-        jLabel1.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
-        jLabel1.setText("Inicio de Sesión");
+        lblTitulo.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
+        lblTitulo.setText("Inicio de Sesión");
+        getContentPane().add(lblTitulo);
+        lblTitulo.setBounds(309, 44, 146, 59);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(309, 309, 309)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(296, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(74, 74, 74)
-                .addComponent(btnCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(215, Short.MAX_VALUE))
-        );
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/background.png"))); // NOI18N
+        jLabel2.setText("jLabel2");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(0, 0, 750, 470);
 
         pack();
         setLocationRelativeTo(null);
@@ -95,7 +87,7 @@ public class Index extends javax.swing.JFrame {
             menuCliente.setVisible(true);
             this.setVisible(false);
         }
-        else{
+        if (x == 1){
             CrearCuenta menuCrear = new CrearCuenta();
             menuCrear.setVisible(true);
             this.setVisible(false);
@@ -147,6 +139,7 @@ public class Index extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdmin;
     private javax.swing.JButton btnCliente;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblTitulo;
     // End of variables declaration//GEN-END:variables
 }
