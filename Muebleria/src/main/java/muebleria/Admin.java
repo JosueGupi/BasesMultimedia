@@ -5,15 +5,24 @@
  */
 package muebleria;
 
+import java.awt.Component;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Box;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
@@ -54,7 +63,7 @@ public class Admin extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Menú Admin");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(293, 84, 143, 30);
+        jLabel1.setBounds(293, 84, 143, 29);
 
         btnCreate.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
         btnCreate.setText("C");
@@ -100,7 +109,7 @@ public class Admin extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Productos:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(330, 260, 69, 18);
+        jLabel2.setBounds(330, 260, 79, 17);
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/admin-fondo.jpg"))); // NOI18N
         fondo.setText("jLabel3");
@@ -156,20 +165,87 @@ public class Admin extends javax.swing.JFrame {
         int result = JOptionPane.showConfirmDialog(null, myPanel, 
                  "Ingrese los datos del nuevo Producto", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-           System.out.println("Matrial: " + txtMaterial.getText());
-           System.out.println("Tipo de producto: " + txtTipoP.getText());
-           System.out.println("Dimensiones: " + txtDimensiones.getText());
-           System.out.println("Precio: " + txtPrecio.getText());
-           System.out.println("Nombre: " + txtNombre.getText());
-           System.out.println("Color: " + txtColor.getText());
-           System.out.println("Cuidados: " + txtCuidados.getText());
-           System.out.println("Path Imagen: " + chooser.getSelectedFile().getAbsolutePath());
+            try {
+                System.out.println("Matrial: " + txtMaterial.getText());
+                System.out.println("Tipo de producto: " + txtTipoP.getText());
+                System.out.println("Dimensiones: " + txtDimensiones.getText());
+                System.out.println("Precio: " + txtPrecio.getText());
+                System.out.println("Nombre: " + txtNombre.getText());
+                System.out.println("Color: " + txtColor.getText());
+                System.out.println("Cuidados: " + txtCuidados.getText());
+                System.out.println("Path Imagen: " + chooser.getSelectedFile().getAbsolutePath());
+                
+                String nombre = chooser.getSelectedFile().getAbsolutePath();
+                String select = "SELECT BulkColumn FROM OPENROWSET(BULK '"+nombre+"',SINGLE_BLOB) AS Imagen";
+                
+                
+                PreparedStatement sql = Conexion.getConexion().prepareStatement(select);
+                
+                
+                ResultSet resultado = sql.executeQuery();
+            
+                resultado.next();
+            
+                byte [] data = resultado.getBytes("BulkColumn");
+                
+                String execute = "EXECUTE spProducto 1, NULL, ?, ?, ?, ?, ?, ?, ?, ?";
+                PreparedStatement sql2 = Conexion.getConexion().prepareStatement(execute);
+                
+                sql2.setInt(1, Integer.parseInt(txtMaterial.getText()));
+                sql2.setInt(2, Integer.parseInt(txtTipoP.getText()));
+                sql2.setInt(3, Integer.parseInt(txtDimensiones.getText()));
+                sql2.setDouble(4, Double.parseDouble(txtPrecio.getText()));
+                sql2.setString(5, txtNombre.getText());
+                sql2.setBytes(6, data);
+                sql2.setString(7, txtColor.getText());
+                sql2.setString(8, txtCuidados.getText());
+                
+                ResultSet resultado2 = sql2.executeQuery();
+                resultado2.next();
+                JOptionPane.showMessageDialog(null,resultado2.getString(1));
+            } catch (SQLException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            }
       }
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReadActionPerformed
-        String n = (String)JOptionPane.showInputDialog("Ingrese id Producto:");
-        System.out.println(n);
+        try {
+            String n = (String)JOptionPane.showInputDialog("Ingrese id Producto:");
+            System.out.println(n);
+            String select = "EXECUTE spProducto 2, ?, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL";
+            
+            
+            PreparedStatement sql = Conexion.getConexion().prepareStatement(select);
+            sql.setInt(1, Integer.parseInt(n));
+            ResultSet resultado = sql.executeQuery();
+            
+            resultado.next();
+            
+            
+            String Id = n;
+            String Material = resultado.getString("tipoMaterial");
+            String TipoP = resultado.getString("tipoProducto");
+            String Dimensiones = resultado.getDouble("altura")+"x"+resultado.getDouble("longitud")+"x"+resultado.getDouble("profundidad");
+            String Precio = resultado.getDouble("precio")+"";
+            String Nombre = resultado.getString("nombre");
+            String Color = resultado.getString("color");
+            String Cuidados = resultado.getString("cuidados");
+            byte [] data = resultado.getBytes("imagen");
+            Icon Imagen = new ImageIcon(new ImageIcon(data).getImage().getScaledInstance(256, 256, Image.SCALE_DEFAULT));
+            JPanel myPanel = new JPanel();
+            
+            JLabel labelImg = new JLabel(Imagen);
+            
+            JTextArea labelInfo = new JTextArea( "ID: "+ Id +"\nMaterial: "+ Material + "\nTipo de producto: " + TipoP + "\nDimensiones: " + Dimensiones + "\nPrecio: " + Precio +"\nNombre: "+ Nombre + "\nColor: " +Color+ "\nCuidados: " + Cuidados);
+            myPanel.add(labelImg);
+            myPanel.add(labelInfo);
+            
+            JOptionPane.showMessageDialog(null, myPanel,"READ", JOptionPane.CLOSED_OPTION);
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_btnReadActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -221,22 +297,70 @@ public class Admin extends javax.swing.JFrame {
         int result = JOptionPane.showConfirmDialog(null, myPanel, 
                  "Ingrese los datos del nuevo Producto", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-           System.out.println("ID: " + txtId.getText());
-           System.out.println("Material: " + txtMaterial.getText());
-           System.out.println("Tipo de producto: " + txtTipoP.getText());
-           System.out.println("Dimensiones: " + txtDimensiones.getText());
-           System.out.println("Precio: " + txtPrecio.getText());
-           System.out.println("Nombre: " + txtNombre.getText());
-           System.out.println("Color: " + txtColor.getText());
-           System.out.println("Cuidados: " + txtCuidados.getText());
-           System.out.println("Path Imagen: " + chooser.getSelectedFile().getAbsolutePath());
+           
+           try {
+                System.out.println("ID: " + txtId.getText());
+                System.out.println("Material: " + txtMaterial.getText());
+                System.out.println("Tipo de producto: " + txtTipoP.getText());
+                System.out.println("Dimensiones: " + txtDimensiones.getText());
+                System.out.println("Precio: " + txtPrecio.getText());
+                System.out.println("Nombre: " + txtNombre.getText());
+                System.out.println("Color: " + txtColor.getText());
+                System.out.println("Cuidados: " + txtCuidados.getText());
+                System.out.println("Path Imagen: " + chooser.getSelectedFile().getAbsolutePath());
+                
+                String nombre = chooser.getSelectedFile().getAbsolutePath();
+                String select = "SELECT BulkColumn FROM OPENROWSET(BULK '"+nombre+"',SINGLE_BLOB) AS Imagen";
+                
+                
+                PreparedStatement sql = Conexion.getConexion().prepareStatement(select);
+                
+                
+                ResultSet resultado = sql.executeQuery();
+            
+                resultado.next();
+            
+                byte [] data = resultado.getBytes("BulkColumn");
+                
+                String execute = "EXECUTE spProducto 3, ?, ?, ?, ?, ?, ?, ?, ?, ?";
+                
+                PreparedStatement sql2 = Conexion.getConexion().prepareStatement(execute);
+                sql2.setInt(1, Integer.parseInt(txtId.getText()));
+                sql2.setInt(2, Integer.parseInt(txtMaterial.getText()));
+                sql2.setInt(3, Integer.parseInt(txtTipoP.getText()));
+                sql2.setInt(4, Integer.parseInt(txtDimensiones.getText()));
+                sql2.setDouble(5, Double.parseDouble(txtPrecio.getText()));
+                sql2.setString(6, txtNombre.getText());
+                sql2.setBytes(7, data);
+                sql2.setString(8, txtColor.getText());
+                sql2.setString(9, txtCuidados.getText());
+                
+                ResultSet resultado2 = sql2.executeQuery();
+                resultado2.next();
+                JOptionPane.showMessageDialog(null,resultado2.getString(1));
+            } catch (SQLException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            }
            
       }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        String n = (String)JOptionPane.showInputDialog("Ingrese id del Producto a eliminar:");
-        System.out.println(n);
+        try {
+            String n = (String)JOptionPane.showInputDialog("Ingrese id del Producto a eliminar:");
+            System.out.println(n);
+            String select = "EXECUTE spProducto 4, ?, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL";
+            
+            
+            PreparedStatement sql = Conexion.getConexion().prepareStatement(select);
+            sql.setInt(1, Integer.parseInt(n));
+            ResultSet res = sql.executeQuery();
+            res.next();
+            JOptionPane.showMessageDialog(null,res.getString(1));
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**

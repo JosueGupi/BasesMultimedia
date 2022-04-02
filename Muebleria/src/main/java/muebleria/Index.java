@@ -99,6 +99,7 @@ public class Index extends javax.swing.JFrame {
         LoginAdmin menuAdmin = new LoginAdmin();
         menuAdmin.setVisible(true);
         this.setVisible(false);
+        
     }//GEN-LAST:event_btnAdminActionPerformed
 
     /**
@@ -142,4 +143,5 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblTitulo;
     // End of variables declaration//GEN-END:variables
+
 }

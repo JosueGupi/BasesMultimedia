@@ -5,6 +5,11 @@
  */
 package muebleria;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -90,21 +95,35 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-        String usuario = "";//
-        String contraseña = "";
-        String contra = new String(txtContra.getPassword());
-        if (txtCliente.getText().equals(usuario) && contra.equals(contraseña)){
-            Cliente cliente = new Cliente();
-            cliente.setVisible(true);
-            this.setVisible(false);
-        }
-        else{
-            JOptionPane.showMessageDialog(this,"Usuario o contraseña incorrecta");
+        try {
+            // TODO add your handling code here:
+            
+            String select = "EXECUTE SP_ValidarLogin ?, ?, 0";
+            
+            
+            PreparedStatement sql = Conexion.getConexion().prepareStatement(select);
+            sql.setString(1, txtCliente.getText());
+            sql.setString(2, txtContra.getText());
+            
+            ResultSet resultado = sql.executeQuery();
+            
+            resultado.next();
+            Usuario u = new Usuario(resultado.getInt("IdCliente"),resultado.getString("Nombre"),resultado.getString("Apellido"),resultado.getString("Tarjeta"),
+                        resultado.getInt("CVC"),resultado.getString("DireccionEntrega"),resultado.getString("Usuario"),resultado.getString("Contra"));
+            System.out.println(u.toString());
+            
+            Cliente c = new Cliente(u);
+            c.setVisible(true);
+            this.dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            txtCliente.setText("usuario incorrecto");
+            txtContra.setText("contraseña incorrecta");
         }
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void txtClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClienteActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtClienteActionPerformed
 
     /**

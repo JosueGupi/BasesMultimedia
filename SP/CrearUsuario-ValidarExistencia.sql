@@ -1,6 +1,6 @@
 USE Muebleria
 GO
-CREATE PROCEDURE [dbo].[SP_ValidarUsuario]
+ALTER PROCEDURE [dbo].[SP_ValidarUsuario]
 	@inNombre VARCHAR(16),
 	@inApellido VARCHAR(16),
 	@inTarjeta VARCHAR(16),
@@ -24,32 +24,47 @@ CREATE PROCEDURE [dbo].[SP_ValidarUsuario]
 				, Usuario
 				, Contra
 			)
-			SELECT
+			VALUES(
 				@inNombre
 				, @inApellido
 				, @inTarjeta
 				, @inCVC
 				, @inDireccion
 				, @inUsuario
-				, @inContraseña 
+				, @inContraseña
+			);
+
+			SELECT
+				IdCliente
+				, Nombre
+				, Apellido
+				, Tarjeta
+				, CVC
+				, DireccionEntrega
+				, Usuario
+				, Contra
+			FROM Cliente
+			WHERE IdCliente= (SELECT MAX(IdCliente) FROM Cliente);
 			
 		END
 	END TRY
 	BEGIN CATCH
-		IF @@Trancount>0 
+		
                     
-                INSERT INTO dbo.Errores    VALUES (
-                    SUSER_SNAME(),
-                    ERROR_NUMBER(),
-                    ERROR_STATE(),
-                    ERROR_SEVERITY(),
-                    ERROR_LINE(),
-                    ERROR_PROCEDURE(),
-                    ERROR_MESSAGE(),
-                    GETDATE()
-                );
+        INSERT INTO dbo.Errores    VALUES (
+            SUSER_SNAME(),
+            ERROR_NUMBER(),
+            ERROR_STATE(),
+            ERROR_SEVERITY(),
+            ERROR_LINE(),
+            ERROR_PROCEDURE(),
+            ERROR_MESSAGE(),
+            GETDATE()
+        );
 
-                SET @OutResultCode=50005;
+        SELECT 50005;
 	END CATCH
 	SET NOCOUNT OFF
 	END
+
+	SELECT * FROM Cliente

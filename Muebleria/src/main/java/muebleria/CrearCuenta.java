@@ -5,6 +5,12 @@
  */
 package muebleria;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Josue
@@ -57,12 +63,12 @@ public class CrearCuenta extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCrear);
-        btnCrear.setBounds(305, 393, 80, 27);
+        btnCrear.setBounds(305, 393, 80, 33);
 
         lblTitulo.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
         lblTitulo.setText("Crear Cuenta");
         getContentPane().add(lblTitulo);
-        lblTitulo.setBounds(321, 34, 109, 23);
+        lblTitulo.setBounds(321, 34, 121, 22);
 
         lblNombre.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         lblNombre.setText("Nombre:");
@@ -130,6 +136,42 @@ public class CrearCuenta extends javax.swing.JFrame {
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            
+            String select = "EXECUTE SP_ValidarUsuario ?, ?, ?, ?, ?, ?, ?, 0";
+            
+            
+            PreparedStatement sql = Conexion.getConexion().prepareStatement(select);
+            sql.setString(1, txtNombre.getText());
+            sql.setString(2, txtApellido.getText());
+            sql.setString(3, txtTarjeta.getText());
+            sql.setInt(4, Integer.parseInt(txtCvc.getText()));
+            sql.setString(5, txtDireccion.getText());
+            sql.setString(6, txtUsuario.getText());
+            sql.setString(7, txtContraseña.getText());
+            
+            ResultSet resultado = sql.executeQuery();
+            
+            resultado.next();
+            Usuario u = new Usuario(resultado.getInt("IdCliente"),resultado.getString("Nombre"),resultado.getString("Apellido"),resultado.getString("Tarjeta"),
+                        resultado.getInt("CVC"),resultado.getString("DireccionEntrega"),resultado.getString("Usuario"),resultado.getString("Contra"));
+            System.out.println(u.toString());
+            Cliente c = new Cliente(u);
+            c.setVisible(true);
+            this.dispose();
+            
+        } catch (Exception ex) {
+            txtUsuario.setText("NOMBRE YA EN USO");
+            txtNombre.setText("");
+            txtApellido.setText("");
+            txtTarjeta.setText("");
+            txtCvc.setText("");
+            txtDireccion.setText("");
+            txtContraseña.setText("");
+            /*Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);*/
+            
+        }
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed

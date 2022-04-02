@@ -5,7 +5,12 @@
  */
 package muebleria;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,9 +18,10 @@ import java.util.ArrayList;
  */
 public class Cliente extends javax.swing.JFrame {
 
-    ArrayList<Producto> productos = new ArrayList();
+    
     public Cliente() {
         initComponents();
+        
     }
     
     /**
@@ -49,17 +55,26 @@ public class Cliente extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Bahnschrift", 1, 24)); // NOI18N
         jLabel1.setText("Menú Cliente");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(310, 50, 151, 30);
+        jLabel1.setBounds(310, 50, 151, 29);
 
         cbNompreP.setFont(new java.awt.Font("Bahnschrift", 0, 12)); // NOI18N
-        cbNompreP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbNompreP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbNomprePActionPerformed(evt);
+            }
+        });
         getContentPane().add(cbNompreP);
-        cbNompreP.setBounds(57, 103, 138, 21);
+        cbNompreP.setBounds(57, 103, 138, 25);
 
         cbTipoP.setFont(new java.awt.Font("Bahnschrift", 0, 12)); // NOI18N
-        cbTipoP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTipoP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
+        cbTipoP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTipoPActionPerformed(evt);
+            }
+        });
         getContentPane().add(cbTipoP);
-        cbTipoP.setBounds(231, 103, 138, 21);
+        cbTipoP.setBounds(231, 103, 138, 25);
 
         txtaCuidados.setEditable(false);
         txtaCuidados.setColumns(20);
@@ -68,7 +83,7 @@ public class Cliente extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtaCuidados);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(96, 170, 206, 174);
+        jScrollPane1.setBounds(96, 170, 203, 174);
 
         btnAnadir.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         btnAnadir.setText("Añadir");
@@ -78,7 +93,7 @@ public class Cliente extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAnadir);
-        btnAnadir.setBounds(269, 401, 100, 27);
+        btnAnadir.setBounds(269, 401, 100, 33);
 
         btnComprar.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         btnComprar.setText("Comprar");
@@ -88,7 +103,7 @@ public class Cliente extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnComprar);
-        btnComprar.setBounds(379, 401, 110, 27);
+        btnComprar.setBounds(379, 401, 110, 33);
 
         lblImagen.setText("Imagen");
         getContentPane().add(lblImagen);
@@ -120,6 +135,62 @@ public class Cliente extends javax.swing.JFrame {
     private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnComprarActionPerformed
+
+    private void cbNomprePActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNomprePActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbNomprePActionPerformed
+
+    private void cbTipoPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoPActionPerformed
+        try {
+            // TODO add your handling code here:
+            if(cbTipoP.getSelectedItem().toString().equals("Todos")){
+                String select = "SELECT COUNT(idProducto) FROM Producto";
+                PreparedStatement sql = Conexion.getConexion().prepareStatement(select);
+            
+                ResultSet resultado = sql.executeQuery();
+                resultado.next();
+                int cantidad = resultado.getInt(1);
+                String[] opciones = new String[cantidad];
+                cantidad = 0;
+                
+                select = "SELECT idProducto,Nombre FROM Producto";
+                sql = Conexion.getConexion().prepareStatement(select);
+                resultado = sql.executeQuery();
+                
+                while(resultado.next()){
+                    opciones[cantidad] = resultado.getString("IdProducto")+"-"+resultado.getString("Nombre");
+                    cantidad++;
+                }
+                cbNompreP.setModel(new javax.swing.DefaultComboBoxModel<>(opciones));
+            }else{
+                String select = "SELECT COUNT(idProducto) FROM Producto p INNER JOIN TipoProducto tp ON p.idTipoProducto = tp.idTipoProducto WHERE tp.tipoproducto = ?";
+                PreparedStatement sql = Conexion.getConexion().prepareStatement(select);
+                sql.setString(1, cbTipoP.getSelectedItem().toString());
+                
+                ResultSet resultado = sql.executeQuery();
+                resultado.next();
+                int cantidad = resultado.getInt(1);
+                String[] opciones = new String[cantidad];
+                cantidad = 0;
+                
+                select = "SELECT idProducto,Nombre FROM Producto p INNER JOIN TipoProducto tp ON p.idTipoProducto = tp.idTipoProducto WHERE tp.tipoproducto = ?";
+                sql = Conexion.getConexion().prepareStatement(select);
+                sql.setString(1, cbTipoP.getSelectedItem().toString());
+                resultado = sql.executeQuery();
+                
+                while(resultado.next()){
+                    opciones[cantidad] = resultado.getString("IdProducto")+"-"+resultado.getString("Nombre");
+                    cantidad++;
+                }
+                cbNompreP.setModel(new javax.swing.DefaultComboBoxModel<>(opciones));
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+    }//GEN-LAST:event_cbTipoPActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,4 +241,41 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JTextArea txtaCarac;
     private javax.swing.JTextArea txtaCuidados;
     // End of variables declaration//GEN-END:variables
+    public Usuario usuario;
+    ArrayList<Producto> productos = new ArrayList();
+
+    public Cliente(Usuario usuario) {
+        try {
+            this.usuario = usuario;
+            initComponents();
+            String select = "SELECT COUNT(tipoProducto) FROM TipoProducto";
+            
+            
+            PreparedStatement sql = Conexion.getConexion().prepareStatement(select);
+            
+            
+            ResultSet resultado = sql.executeQuery();
+            resultado.next();
+            int cantidad = resultado.getInt(1)+1;
+            
+            String[] opciones = new String[cantidad];
+            
+            
+            
+            select = "SELECT tipoProducto FROM TipoProducto";
+            sql = Conexion.getConexion().prepareStatement(select);
+            resultado = sql.executeQuery();
+            opciones[0] = "Todos";
+            cantidad = 1;
+            while(resultado.next()){
+                opciones[cantidad] = resultado.getString("tipoProducto");
+                cantidad++;
+            }
+            
+            cbTipoP.setModel(new javax.swing.DefaultComboBoxModel<>(opciones));
+        } catch (SQLException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }

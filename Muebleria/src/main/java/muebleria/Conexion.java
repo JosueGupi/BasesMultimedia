@@ -17,7 +17,7 @@ import java.sql.SQLException;
  */
 public class Conexion {
     private static final String CONEXIONURL = "jdbc:sqlserver://localhost:1433;"
-                    + "database=PruebaTarea1;"
+                    + "database=Muebleria;"
                     + "user=sa;"
                     + "password=admin;"
                     + "loginTimeout=30;";
