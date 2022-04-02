@@ -31,6 +31,8 @@ public class Main {
 
         byte [] data = resultado.getBytes("BulkColumn");
         System.out.println(data);
+        Index menu = new Index();
+        menu.setVisible(true);
     }
     
 }
