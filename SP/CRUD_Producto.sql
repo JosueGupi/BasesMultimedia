@@ -3,8 +3,8 @@
 
 SELECT * FROM Producto
 
-GO --DROP PROCEDURE spProducto
-ALTER PROCEDURE spProducto2 @flag int, @idProducto int, @idTipoMaterial int, @idTipoProducto int,
+GO 
+ALTER PROCEDURE spProducto @flag int, @idProducto int, @idTipoMaterial int, @idTipoProducto int,
 							 @idDimensiones int, @precio money, @nombre varchar(16), @imagen varbinary(MAX),
 							 @color varchar(16), @cuidados varchar(256)
 WITH ENCRYPTION AS
@@ -18,7 +18,7 @@ IF(SELECT COUNT(idProducto) FROM Producto WHERE idProducto = @idProducto) = 0  -
 		SELECT @error
 		RETURN 1
 	END
---BEGIN TRY 
+BEGIN TRY 
 	IF @flag = 1 -- CREATE
 	BEGIN
 		BEGIN TRY
@@ -38,7 +38,7 @@ IF(SELECT COUNT(idProducto) FROM Producto WHERE idProducto = @idProducto) = 0  -
 	END
 	IF @flag = 2 -- READ
 	BEGIN
-		SELECT P.idProducto, nombre, precio, imagen, cuidados, color, tipoMaterial, altura, lomgitud, profundidad, tipoProducto
+		SELECT P.idProducto, nombre, precio, imagen, cuidados, color, tipoMaterial, altura, longitud, profundidad, tipoProducto
 		FROM Producto AS P
 		INNER JOIN Caracteristicas
 			ON P.idProducto = Caracteristicas.idProducto
@@ -86,7 +86,7 @@ IF(SELECT COUNT(idProducto) FROM Producto WHERE idProducto = @idProducto) = 0  -
 		SELECT @error
 	
 	END
-/*END TRY
+END TRY
 BEGIN CATCH               
     INSERT INTO dbo.Errores    VALUES (
         SUSER_SNAME(),
@@ -98,9 +98,14 @@ BEGIN CATCH
         ERROR_MESSAGE(),
         GETDATE()
     );
-END CATCH*/
+END CATCH
 PRINT(@error)
 RETURN 0
+
+ALTER TABLE Dimensiones
+ADD longitud int ;
+
+SELECT * FROM Dimensiones
 
 
 /*
@@ -122,10 +127,10 @@ SELECT * FROM Caracteristicas
 
 DECLARE @imagenAlimento VARBINARY(MAX);
 SET @imagenAlimento = (SELECT BulkColumn FROM OPENROWSET(BULK 'C:/abeja.jpg',SINGLE_BLOB) AS Imagen)
-EXECUTE spProducto 1,1,1,3,2,350000,'Mueble de cocina',@imagenAlimento,'Negro','Utilizar un paño suave para limpiarlos y darles brillo, utilizar productos en aerosol.'
+EXECUTE spProducto 1,NULL,1,3,2,350000,'Mueble de cocina',@imagenAlimento,'Negro','Utilizar un paño suave para limpiarlos y darles brillo, utilizar productos en aerosol.'
 
 SELECT * FROM Producto
 
-EXECUTE spProducto 4,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+EXECUTE spProducto 4,18,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
 
 */
