@@ -102,28 +102,7 @@ END CATCH
 PRINT(@error)
 RETURN 0
 
-ALTER TABLE Dimensiones
-ADD longitud int ;
-
-SELECT * FROM Dimensiones
-
-
 /*
-EXECUTE spProducto 1,NULL,1,3,2,350000,'Mueble de cocina','ruta imagen','Negro','Utilizar un paño suave para limpiarlos y darles brillo, utilizar productos en aerosol.'
-EXECUTE spProducto 1,NULL,NULL,3,2,350000,'Mueble de cocina','ruta imagen','Negro','Utilizar un paño suave para limpiarlos y darles brillo, utilizar productos en aerosol.'
-EXECUTE spProducto 1,NULL,1,3,2,350000,'Mueble de cocina','ruta imagen','Negroooo','Utilizar un paño suave para limpiarlos y darles brillo, utilizar productos en aerosol.'
-EXECUTE spProducto 1,NULL,1,3,2,NULL,'Mueble de cocina','ruta imagen','Negro','Utilizar un paño suave para limpiarlos y darles brillo, utilizar productos en aerosol.'
-EXECUTE spProducto 2,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
-EXECUTE spProducto 2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
-EXECUTE spProducto 2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Negro',NULL
-EXECUTE spProducto 3,1,NULL,NULL,NULL,NULL,NULL,NULL,'Amarillo',NULL
-EXECUTE spProducto 2,1,NULL,NULL,NULL,NULL,NULL,NULL,'Amarillo',NULL
-EXECUTE spProducto 2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Amarillo',NULL
-EXECUTE spProducto 2,170,NULL,NULL,NULL,NULL,NULL,NULL,'Amarillo',NULL
-EXECUTE spProducto 4,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
-SELECT * FROM Producto
-SELECT * FROM Caracteristicas
-
 
 DECLARE @imagenAlimento VARBINARY(MAX);
 SET @imagenAlimento = (SELECT BulkColumn FROM OPENROWSET(BULK 'C:/abeja.jpg',SINGLE_BLOB) AS Imagen)
