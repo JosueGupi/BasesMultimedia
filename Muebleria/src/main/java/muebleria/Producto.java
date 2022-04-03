@@ -11,30 +11,27 @@ package muebleria;
  */
 public class Producto {
     public int idProducto;
-    public String material;
-    public String tipoProducto;
-    public String dimensiones;
-    public float precio;
     public String nombre;
-    public String cuidados;
-    public byte [] imagen;
+    public float precio;
+    public int cantidad;
+    
+    
 
     public Producto() {
     }
 
-    public Producto(int idProducto, String material, String tipoProducto, String dimensiones, float precio, String nombre, String cuidados) {
+    public Producto(int idProducto, String nombre, float precio, int cantidad) {
         this.idProducto = idProducto;
-        this.material = material;
-        this.tipoProducto = tipoProducto;
-        this.dimensiones = dimensiones;
-        this.precio = precio;
         this.nombre = nombre;
-        this.cuidados = cuidados;
+        this.precio = precio;
+        this.cantidad = cantidad;
     }
+
+    /*
     
     public String toString(){
         return nombre+"|"+tipoProducto+"|"+material+"|"+dimensiones+"|"+precio;
-    }
+    }*/
     
     
 }

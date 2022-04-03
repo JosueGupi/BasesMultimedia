@@ -132,6 +132,7 @@ public class Cliente extends javax.swing.JFrame {
 
     private void btnAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnAnadirActionPerformed
 
     private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed

@@ -1,6 +1,7 @@
 USE Muebleria
 GO
-CREATE PROCEDURE [dbo].[SP_Facturacion]
+  
+CREATE PROCEDURE [dbo].[SP_ConsultaEspecifica]
 	@inIdProducto INT,
 	@outResultCode INT OUTPUT
 	AS
@@ -55,4 +56,4 @@ CREATE PROCEDURE [dbo].[SP_Facturacion]
 		INNER JOIN Caracteristicas c ON p.idProducto = c.idProducto
 		INNER JOIN TipoMaterial tp ON tp.idTipoMaterial = p.idTipoMaterial
 		INNER JOIN Dimensiones d ON d.idDimensiones = p.idDimensiones
-		WHERE p.idProducto = 3
+		WHERE p.idProducto = 4
