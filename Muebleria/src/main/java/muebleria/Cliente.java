@@ -5,12 +5,14 @@
  */
 package muebleria;
 
+import java.awt.Image;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -137,7 +139,22 @@ public class Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnComprarActionPerformed
 
     private void cbNomprePActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNomprePActionPerformed
-        // TODO add your handling code here:
+        try {
+            String[] eleccion = cbNompreP.getSelectedItem().toString().split("-");
+            int id = Integer.parseInt(eleccion[0]);
+            String execute = "EXECUTE SP_ConsultaEspecifica ?, 0";
+            PreparedStatement sql = Conexion.getConexion().prepareStatement(execute);
+            sql.setInt(1, id);
+            ResultSet resultado = sql.executeQuery();
+            resultado.next();
+            txtaCuidados.setText("Precio: "+resultado.getDouble("precio")+"\n Cuidados: "+resultado.getString("cuidados"));
+            txtaCarac.setText("Color: "+resultado.getString("Color")
+            +"\n Dimensiones: "+resultado.getString("altura")+"x"+resultado.getString("longitud")+"x"+resultado.getString("profundidad")+"\nTipo Material: "+resultado.getString("tipoMaterial"));
+            lblImagen.setIcon( new ImageIcon(new ImageIcon(resultado.getBytes("imagen")).getImage().getScaledInstance(256, 256, Image.SCALE_DEFAULT)));
+        } catch (SQLException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_cbNomprePActionPerformed
 
     private void cbTipoPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoPActionPerformed
@@ -273,6 +290,30 @@ public class Cliente extends javax.swing.JFrame {
             }
             
             cbTipoP.setModel(new javax.swing.DefaultComboBoxModel<>(opciones));
+            
+            
+            select = "SELECT COUNT(idProducto) FROM Producto";
+            sql = Conexion.getConexion().prepareStatement(select);
+
+            resultado = sql.executeQuery();
+            resultado.next();
+            cantidad = resultado.getInt(1);
+            opciones = new String[cantidad];
+            cantidad = 0;
+
+            select = "SELECT idProducto,Nombre FROM Producto";
+            sql = Conexion.getConexion().prepareStatement(select);
+            resultado = sql.executeQuery();
+
+            while(resultado.next()){
+                opciones[cantidad] = resultado.getString("IdProducto")+"-"+resultado.getString("Nombre");
+                cantidad++;
+            }
+            cbNompreP.setModel(new javax.swing.DefaultComboBoxModel<>(opciones));
+
+            
+            
+            
         } catch (SQLException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
