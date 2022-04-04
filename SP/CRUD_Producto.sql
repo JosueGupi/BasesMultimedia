@@ -1,10 +1,8 @@
 -- Agregar Funcion o procedimientoLos productos se deben de poder agregar al inventario (CRUD)
 -- Flag: 1. CREATE 2. READ 3. UPDATE 4. DELETE 
 
-SELECT * FROM Producto
-
 GO 
-ALTER PROCEDURE spProducto @flag int, @idProducto int, @idTipoMaterial int, @idTipoProducto int,
+CREATE PROCEDURE spProducto @flag int, @idProducto int, @idTipoMaterial int, @idTipoProducto int,
 							 @idDimensiones int, @precio money, @nombre varchar(16), @imagen varbinary(MAX),
 							 @color varchar(16), @cuidados varchar(256)
 WITH ENCRYPTION AS
@@ -103,6 +101,18 @@ PRINT(@error)
 RETURN 0
 
 /*
+EXECUTE spProducto 1,NULL,1,3,2,350000,'Mueble de cocina','ruta imagen','Negro','Utilizar un paño suave para limpiarlos y darles brillo, utilizar productos en aerosol.'
+EXECUTE spProducto 1,NULL,NULL,3,2,350000,'Mueble de cocina','ruta imagen','Negro','Utilizar un paño suave para limpiarlos y darles brillo, utilizar productos en aerosol.'
+EXECUTE spProducto 1,NULL,1,3,2,350000,'Mueble de cocina','ruta imagen','Negroooo','Utilizar un paño suave para limpiarlos y darles brillo, utilizar productos en aerosol.'
+EXECUTE spProducto 1,NULL,1,3,2,NULL,'Mueble de cocina','ruta imagen','Negro','Utilizar un paño suave para limpiarlos y darles brillo, utilizar productos en aerosol.'
+EXECUTE spProducto 2,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+EXECUTE spProducto 2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+EXECUTE spProducto 2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Negro',NULL
+EXECUTE spProducto 3,1,NULL,NULL,NULL,NULL,NULL,NULL,'Amarillo',NULL
+EXECUTE spProducto 2,1,NULL,NULL,NULL,NULL,NULL,NULL,'Amarillo',NULL
+EXECUTE spProducto 2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Amarillo',NULL
+EXECUTE spProducto 2,170,NULL,NULL,NULL,NULL,NULL,NULL,'Amarillo',NULL
+EXECUTE spProducto 4,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
 
 DECLARE @imagenAlimento VARBINARY(MAX);
 SET @imagenAlimento = (SELECT BulkColumn FROM OPENROWSET(BULK 'C:/abeja.jpg',SINGLE_BLOB) AS Imagen)

@@ -1,6 +1,6 @@
 USE Muebleria
 GO
-ALTER PROCEDURE [dbo].[SP_ValidarUsuario]
+CREATE PROCEDURE [dbo].[SP_ValidarUsuario]
 	@inNombre VARCHAR(16),
 	@inApellido VARCHAR(16),
 	@inTarjeta VARCHAR(16),
