@@ -149,11 +149,11 @@ public class Facturacion extends javax.swing.JFrame {
     private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
         try {
             // TODO add your handling code here:
-            String execute = "EXECUTE SP_CrearFactura 1, ?, ?, ?";
+            String execute = "EXECUTE SP_CrearFactura ?, ?, ?, 0";
             PreparedStatement sql = Conexion.getConexion().prepareStatement(execute);
-            sql.setInt(1,usuario.id);
-            sql.setInt(2,(Integer) cbTPago.getSelectedItem());
-            switch((Integer) cbTPago.getSelectedItem()) {
+            sql.setInt(1,cbTPago.getSelectedIndex()+1);
+            sql.setInt(2,usuario.id);
+            switch(cbTPago.getSelectedIndex()) {
                 case 0:
                     sql.setInt(3,0);
                   break;
@@ -260,8 +260,8 @@ public class Facturacion extends javax.swing.JFrame {
         double precioFinal = 0;
         for(int i = 0; i < productos.size();i++){
            nombres += productos.get(i).nombre + "\n";
-           cantidades =  productos.get(i).cantidad + "\n";
-           precios = productos.get(i).precio + "\n";
+           cantidades +=  productos.get(i).cantidad + "\n";
+           precios += productos.get(i).precio + "\n";
            precioFinal += productos.get(i).precio*productos.get(i).cantidad;
         }
         txtArea.setText(nombres);

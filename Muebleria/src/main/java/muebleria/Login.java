@@ -108,6 +108,7 @@ public class Login extends javax.swing.JFrame {
             ResultSet resultado = sql.executeQuery();
             
             resultado.next();
+            
             Usuario u = new Usuario(resultado.getInt("IdCliente"),resultado.getString("Nombre"),resultado.getString("Apellido"),resultado.getString("Tarjeta"),
                         resultado.getInt("CVC"),resultado.getString("DireccionEntrega"),resultado.getString("Usuario"),resultado.getString("Contra"));
             System.out.println(u.toString());
