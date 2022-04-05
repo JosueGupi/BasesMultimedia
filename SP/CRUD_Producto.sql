@@ -2,10 +2,10 @@
 -- Flag: 1. CREATE 2. READ 3. UPDATE 4. DELETE 
 
 GO 
-CREATE PROCEDURE spProducto @flag int, @idProducto int, @idTipoMaterial int, @idTipoProducto int,
+ALTER PROCEDURE spProducto @flag int, @idProducto int, @idTipoMaterial int, @idTipoProducto int,
 							 @idDimensiones int, @precio money, @nombre varchar(16), @imagen varbinary(MAX),
 							 @color varchar(16), @cuidados varchar(256)
-WITH ENCRYPTION AS
+AS
 DECLARE @error varchar(2222)
 DECLARE @aux int 
 IF(SELECT COUNT(idProducto) FROM Producto WHERE idProducto = @idProducto) = 0  -- obtener existencia

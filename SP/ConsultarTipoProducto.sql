@@ -9,8 +9,8 @@ o verlos todos, se debe mostrar la imagen del producto, las características,
 precio, y demás información*/
 
 GO
-CREATE PROCEDURE spProductosExistentes (@idTipoProducto int)
-WITH ENCRYPTION AS
+ALTER PROCEDURE spProductosExistentes (@idTipoProducto int)
+ AS
 DECLARE @error varchar(2222)
 BEGIN TRY
 	BEGIN

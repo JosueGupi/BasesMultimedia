@@ -5,6 +5,13 @@
  */
 package muebleria;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Josue
@@ -28,10 +35,11 @@ public class Facturacion extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        txtTotal = new javax.swing.JTextField();
+        btnComprar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtArea = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -41,31 +49,34 @@ public class Facturacion extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Bahnschrift", 1, 24)); // NOI18N
         jLabel1.setText("Facturación");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(306, 33, 137, 30);
+        jLabel1.setBounds(306, 33, 137, 29);
 
-        jButton1.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
-        jButton1.setText("Terminar compra");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnComprar.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
+        btnComprar.setText("Terminar compra");
+        btnComprar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnComprarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(286, 440, 143, 27);
-
-        txtTotal.setBackground(new java.awt.Color(240, 240, 240));
-        getContentPane().add(txtTotal);
-        txtTotal.setBounds(228, 81, 284, 296);
+        getContentPane().add(btnComprar);
+        btnComprar.setBounds(300, 440, 140, 33);
 
         jLabel2.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         jLabel2.setText("Total:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(228, 388, 34, 22);
+        jLabel2.setBounds(260, 380, 34, 22);
 
         lblTotal.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         lblTotal.setText("0");
         getContentPane().add(lblTotal);
-        lblTotal.setBounds(455, 390, 57, 18);
+        lblTotal.setBounds(430, 380, 130, 17);
+
+        txtArea.setColumns(20);
+        txtArea.setRows(5);
+        jScrollPane1.setViewportView(txtArea);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(260, 80, 223, 290);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo-vector.jpg"))); // NOI18N
         jLabel3.setText("jLabel3");
@@ -76,9 +87,38 @@ public class Facturacion extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
+        try {
+            // TODO add your handling code here:
+            String execute = "EXECUTE SP_CrearFactura 1, ?, 0, 0";
+            PreparedStatement sql = Conexion.getConexion().prepareStatement(execute);
+            sql.setInt(1,usuario.id);
+            
+            ResultSet res = sql.executeQuery();
+            
+            res.next();
+            
+            int idFactura = res.getInt(1);
+            
+            execute = "EXECUTE SP_Facturacion ?, ?, ?, 0";
+            
+            for(int i  = 0; i < productos.size(); i++){
+                sql = Conexion.getConexion().prepareStatement(execute);
+                sql.setInt(1, productos.get(i).idProducto);
+                sql.setInt(2, idFactura);
+                sql.setInt(3, productos.get(i).cantidad);
+                
+                sql.executeUpdate();
+            }
+            
+            
+            Index i = new Index();
+            i.setVisible(true);
+            this.dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(Facturacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnComprarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -116,11 +156,29 @@ public class Facturacion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnComprar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTotal;
-    private javax.swing.JTextField txtTotal;
+    private javax.swing.JTextArea txtArea;
     // End of variables declaration//GEN-END:variables
+    public Usuario usuario;
+    ArrayList<Producto> productos;
+
+    public Facturacion(Usuario usuario, ArrayList<Producto> productos) {
+        this.usuario = usuario;
+        this.productos = productos;
+        initComponents();
+        String ultimo = "";
+        double precioFinal = 0;
+        for(int i = 0; i < productos.size();i++){
+           ultimo += productos.get(i).toString()+"\n";
+           precioFinal += productos.get(i).precio*productos.get(i).cantidad;
+        }
+        txtArea.setText(ultimo);
+        lblTotal.setText(""+precioFinal);
+    }
+    
 }

@@ -12,7 +12,7 @@ package muebleria;
 public class Producto {
     public int idProducto;
     public String nombre;
-    public float precio;
+    public double precio;
     public int cantidad;
     
     
@@ -20,18 +20,18 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(int idProducto, String nombre, float precio, int cantidad) {
+    public Producto(int idProducto, String nombre, double precio, int cantidad) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.precio = precio;
         this.cantidad = cantidad;
     }
 
-    /*
+    
     
     public String toString(){
-        return nombre+"|"+tipoProducto+"|"+material+"|"+dimensiones+"|"+precio;
-    }*/
+        return idProducto+"|"+nombre+"|"+precio+"|"+cantidad+"|";
+    }
     
     
 }

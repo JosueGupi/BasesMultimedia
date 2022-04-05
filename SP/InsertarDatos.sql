@@ -69,3 +69,12 @@ INSERT INTO ProductoXFacturas (idProducto,idFactura,cantidad,precioActual)
 			VALUES (10,@idFactura3,1,120000.00)
 
 */
+
+SELECT * FROM Producto
+
+
+EXECUTE spProducto 2, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+
+SELECT * FROM Producto WHERE idProducto = 2
+
+

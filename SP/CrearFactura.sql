@@ -19,6 +19,7 @@ CREATE PROCEDURE [dbo].[SP_CrearFactura]
 			, @inIdCliente
 			, @Descuento
 			, GETDATE();
+		SELECT SCOPE_IDENTITY() FROM Factura;
 
 	END TRY
 	BEGIN CATCH
@@ -38,3 +39,5 @@ CREATE PROCEDURE [dbo].[SP_CrearFactura]
 	END CATCH
 	SET NOCOUNT OFF
 	END
+
+	SELECT * FROM TipoPago

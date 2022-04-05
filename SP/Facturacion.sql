@@ -18,8 +18,8 @@ CREATE PROCEDURE [dbo].[SP_Facturacion]
 			@inIdProducto
 			, @inIdFactura
 			, @inCantidad
-			, Precio
-		FROM Producto
+			, p.Precio
+		FROM Producto p
 		WHERE idProducto = @inIdProducto;
 
 	END TRY
@@ -40,3 +40,7 @@ CREATE PROCEDURE [dbo].[SP_Facturacion]
 	END CATCH
 	SET NOCOUNT OFF
 	END
+
+
+	SELECT * FROM Factura;
+	SELECT * FROM ProductoXFacturas;

@@ -35,6 +35,7 @@ public class Cliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblprecio = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         cbNompreP = new javax.swing.JComboBox<>();
         cbTipoP = new javax.swing.JComboBox<>();
@@ -53,6 +54,10 @@ public class Cliente extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(755, 483));
         getContentPane().setLayout(null);
 
+        lblprecio.setText("\"\"");
+        getContentPane().add(lblprecio);
+        lblprecio.setBounds(160, 370, 41, 16);
+
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Bahnschrift", 1, 24)); // NOI18N
         jLabel1.setText("Menú Cliente");
@@ -66,7 +71,7 @@ public class Cliente extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cbNompreP);
-        cbNompreP.setBounds(57, 103, 138, 25);
+        cbNompreP.setBounds(5, 103, 210, 25);
 
         cbTipoP.setFont(new java.awt.Font("Bahnschrift", 0, 12)); // NOI18N
         cbTipoP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
@@ -110,6 +115,8 @@ public class Cliente extends javax.swing.JFrame {
         lblImagen.setText("Imagen");
         getContentPane().add(lblImagen);
         lblImagen.setBounds(493, 164, 220, 180);
+
+        spCant.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
         getContentPane().add(spCant);
         spCant.setBounds(397, 102, 46, 30);
 
@@ -132,11 +139,20 @@ public class Cliente extends javax.swing.JFrame {
 
     private void btnAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirActionPerformed
         // TODO add your handling code here:
+        this.productos.add(new Producto(Integer.parseInt(cbNompreP.getSelectedItem().toString().split("-")[0]),cbNompreP.getSelectedItem().toString().split("-")[1],Double.parseDouble(lblprecio.getText()),(Integer)spCant.getValue()));
         
     }//GEN-LAST:event_btnAnadirActionPerformed
 
     private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
         // TODO add your handling code here:
+        
+        for(int i = 0; i < productos.size();i++){
+            System.out.println(productos.get(i).toString());
+        }
+        Facturacion f = new Facturacion(this.usuario,this.productos);
+        f.setVisible(true);
+        this.dispose();
+
     }//GEN-LAST:event_btnComprarActionPerformed
 
     private void cbNomprePActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNomprePActionPerformed
@@ -148,10 +164,11 @@ public class Cliente extends javax.swing.JFrame {
             sql.setInt(1, id);
             ResultSet resultado = sql.executeQuery();
             resultado.next();
-            txtaCuidados.setText("Precio: "+resultado.getDouble("precio")+"\n Cuidados: "+resultado.getString("cuidados"));
+            txtaCuidados.setText("Cuidados: "+resultado.getString("cuidados"));
             txtaCarac.setText("Color: "+resultado.getString("Color")
             +"\n Dimensiones: "+resultado.getString("altura")+"x"+resultado.getString("longitud")+"x"+resultado.getString("profundidad")+"\nTipo Material: "+resultado.getString("tipoMaterial"));
             lblImagen.setIcon( new ImageIcon(new ImageIcon(resultado.getBytes("imagen")).getImage().getScaledInstance(256, 256, Image.SCALE_DEFAULT)));
+            lblprecio.setText(resultado.getDouble("precio")+"");
         } catch (SQLException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -255,16 +272,18 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblImagen;
+    private javax.swing.JLabel lblprecio;
     private javax.swing.JSpinner spCant;
     private javax.swing.JTextArea txtaCarac;
     private javax.swing.JTextArea txtaCuidados;
     // End of variables declaration//GEN-END:variables
     public Usuario usuario;
-    ArrayList<Producto> productos = new ArrayList();
+    ArrayList<Producto> productos;
 
     public Cliente(Usuario usuario) {
         try {
             this.usuario = usuario;
+            this.productos  = new ArrayList();
             initComponents();
             String select = "SELECT COUNT(tipoProducto) FROM TipoProducto";
             
