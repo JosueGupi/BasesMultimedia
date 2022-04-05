@@ -34,6 +34,15 @@ public class Facturacion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtPrecio = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtCant = new javax.swing.JTextArea();
+        cbTPago = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         btnComprar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -43,13 +52,61 @@ public class Facturacion extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(755, 483));
+        setMinimumSize(new java.awt.Dimension(740, 540));
         getContentPane().setLayout(null);
+
+        jLabel5.setFont(new java.awt.Font("Bahnschrift", 1, 14)); // NOI18N
+        jLabel5.setText("Nombre:");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(230, 120, 70, 30);
+
+        jLabel4.setFont(new java.awt.Font("Bahnschrift", 0, 11)); // NOI18N
+        jLabel4.setText("Tipo de pago:");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(270, 80, 70, 20);
+
+        jLabel6.setFont(new java.awt.Font("Bahnschrift", 1, 14)); // NOI18N
+        jLabel6.setText("Cantidad:");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(370, 120, 70, 30);
+
+        jLabel7.setFont(new java.awt.Font("Bahnschrift", 1, 14)); // NOI18N
+        jLabel7.setText("Precio:");
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(490, 120, 70, 30);
+
+        txtPrecio.setEditable(false);
+        txtPrecio.setColumns(10);
+        txtPrecio.setFont(new java.awt.Font("Bahnschrift", 0, 13)); // NOI18N
+        txtPrecio.setRows(5);
+        jScrollPane3.setViewportView(txtPrecio);
+
+        getContentPane().add(jScrollPane3);
+        jScrollPane3.setBounds(460, 150, 130, 230);
+
+        txtCant.setEditable(false);
+        txtCant.setColumns(5);
+        txtCant.setFont(new java.awt.Font("Bahnschrift", 0, 13)); // NOI18N
+        txtCant.setRows(5);
+        jScrollPane2.setViewportView(txtCant);
+
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(360, 150, 80, 230);
+
+        cbTPago.setFont(new java.awt.Font("Bahnschrift", 0, 11)); // NOI18N
+        cbTPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tarjeta", "Paypal", "Sinpe Móvil" }));
+        cbTPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTPagoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cbTPago);
+        cbTPago.setBounds(350, 80, 140, 30);
 
         jLabel1.setFont(new java.awt.Font("Bahnschrift", 1, 24)); // NOI18N
         jLabel1.setText("Facturación");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(306, 33, 137, 29);
+        jLabel1.setBounds(306, 33, 137, 30);
 
         btnComprar.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         btnComprar.setText("Terminar compra");
@@ -59,29 +116,31 @@ public class Facturacion extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnComprar);
-        btnComprar.setBounds(300, 440, 140, 33);
+        btnComprar.setBounds(290, 440, 143, 27);
 
         jLabel2.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         jLabel2.setText("Total:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(260, 380, 34, 22);
+        jLabel2.setBounds(270, 390, 34, 22);
 
         lblTotal.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         lblTotal.setText("0");
         getContentPane().add(lblTotal);
-        lblTotal.setBounds(430, 380, 130, 17);
+        lblTotal.setBounds(460, 390, 130, 18);
 
-        txtArea.setColumns(20);
+        txtArea.setEditable(false);
+        txtArea.setColumns(15);
+        txtArea.setFont(new java.awt.Font("Bahnschrift", 0, 13)); // NOI18N
         txtArea.setRows(5);
         jScrollPane1.setViewportView(txtArea);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(260, 80, 223, 290);
+        jScrollPane1.setBounds(160, 150, 190, 230);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo-vector.jpg"))); // NOI18N
         jLabel3.setText("jLabel3");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(0, 0, 750, 500);
+        jLabel3.setBounds(0, 0, 740, 490);
 
         pack();
         setLocationRelativeTo(null);
@@ -90,9 +149,20 @@ public class Facturacion extends javax.swing.JFrame {
     private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
         try {
             // TODO add your handling code here:
-            String execute = "EXECUTE SP_CrearFactura 1, ?, 0, 0";
+            String execute = "EXECUTE SP_CrearFactura 1, ?, ?, ?";
             PreparedStatement sql = Conexion.getConexion().prepareStatement(execute);
             sql.setInt(1,usuario.id);
+            sql.setInt(2,(Integer) cbTPago.getSelectedItem());
+            switch((Integer) cbTPago.getSelectedItem()) {
+                case 0:
+                    sql.setInt(3,0);
+                  break;
+                case 1:
+                    sql.setInt(3,5);
+                  break;
+                default:
+                    sql.setInt(3,13);
+              }
             
             ResultSet res = sql.executeQuery();
             
@@ -119,6 +189,10 @@ public class Facturacion extends javax.swing.JFrame {
             Logger.getLogger(Facturacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnComprarActionPerformed
+
+    private void cbTPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTPagoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTPagoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,12 +231,21 @@ public class Facturacion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnComprar;
+    private javax.swing.JComboBox<String> cbTPago;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JTextArea txtArea;
+    private javax.swing.JTextArea txtCant;
+    private javax.swing.JTextArea txtPrecio;
     // End of variables declaration//GEN-END:variables
     public Usuario usuario;
     ArrayList<Producto> productos;
@@ -171,13 +254,19 @@ public class Facturacion extends javax.swing.JFrame {
         this.usuario = usuario;
         this.productos = productos;
         initComponents();
-        String ultimo = "";
+        String nombres = "";
+        String cantidades = "";
+        String precios = "";
         double precioFinal = 0;
         for(int i = 0; i < productos.size();i++){
-           ultimo += productos.get(i).toString()+"\n";
+           nombres += productos.get(i).nombre + "\n";
+           cantidades =  productos.get(i).cantidad + "\n";
+           precios = productos.get(i).precio + "\n";
            precioFinal += productos.get(i).precio*productos.get(i).cantidad;
         }
-        txtArea.setText(ultimo);
+        txtArea.setText(nombres);
+        txtCant.setText(cantidades);
+        txtPrecio.setText(precios);
         lblTotal.setText(""+precioFinal);
     }
     

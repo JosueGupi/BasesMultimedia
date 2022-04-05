@@ -35,6 +35,7 @@ public class Cliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
         lblprecio = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         cbNompreP = new javax.swing.JComboBox<>();
@@ -54,15 +55,21 @@ public class Cliente extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(755, 483));
         getContentPane().setLayout(null);
 
+        jLabel2.setFont(new java.awt.Font("Bahnschrift", 0, 11)); // NOI18N
+        jLabel2.setText("Precio:");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(550, 370, 50, 20);
+
+        lblprecio.setFont(new java.awt.Font("Bahnschrift", 0, 11)); // NOI18N
         lblprecio.setText("\"\"");
         getContentPane().add(lblprecio);
-        lblprecio.setBounds(160, 370, 41, 16);
+        lblprecio.setBounds(610, 370, 90, 20);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Bahnschrift", 1, 24)); // NOI18N
         jLabel1.setText("Menú Cliente");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(310, 50, 151, 29);
+        jLabel1.setBounds(310, 50, 151, 30);
 
         cbNompreP.setFont(new java.awt.Font("Bahnschrift", 0, 12)); // NOI18N
         cbNompreP.addActionListener(new java.awt.event.ActionListener() {
@@ -71,7 +78,7 @@ public class Cliente extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cbNompreP);
-        cbNompreP.setBounds(5, 103, 210, 25);
+        cbNompreP.setBounds(10, 100, 210, 30);
 
         cbTipoP.setFont(new java.awt.Font("Bahnschrift", 0, 12)); // NOI18N
         cbTipoP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
@@ -81,7 +88,7 @@ public class Cliente extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cbTipoP);
-        cbTipoP.setBounds(231, 103, 138, 25);
+        cbTipoP.setBounds(240, 100, 138, 30);
 
         txtaCuidados.setEditable(false);
         txtaCuidados.setColumns(20);
@@ -90,7 +97,7 @@ public class Cliente extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtaCuidados);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(96, 170, 203, 174);
+        jScrollPane1.setBounds(72, 170, 230, 174);
 
         btnAnadir.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         btnAnadir.setText("Añadir");
@@ -100,7 +107,7 @@ public class Cliente extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAnadir);
-        btnAnadir.setBounds(269, 401, 100, 33);
+        btnAnadir.setBounds(269, 401, 100, 27);
 
         btnComprar.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         btnComprar.setText("Comprar");
@@ -110,11 +117,11 @@ public class Cliente extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnComprar);
-        btnComprar.setBounds(379, 401, 110, 33);
+        btnComprar.setBounds(379, 401, 110, 27);
 
         lblImagen.setText("Imagen");
         getContentPane().add(lblImagen);
-        lblImagen.setBounds(493, 164, 220, 180);
+        lblImagen.setBounds(480, 160, 220, 180);
 
         spCant.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
         getContentPane().add(spCant);
@@ -126,7 +133,7 @@ public class Cliente extends javax.swing.JFrame {
         jScrollPane2.setViewportView(txtaCarac);
 
         getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(480, 100, 230, 50);
+        jScrollPane2.setBounds(480, 100, 250, 50);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Furniture_pictograms.jpg"))); // NOI18N
         jLabel3.setText("jLabel3");
@@ -268,6 +275,7 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbNompreP;
     private javax.swing.JComboBox<String> cbTipoP;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
